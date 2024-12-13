@@ -1,0 +1,45 @@
+services:
+  lz-api:
+    container_name: lz-api
+    build: .
+    ports:
+      - "8081:8080"
+    networks:
+      - lz-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://lz-db:5432/lz?currentSchema=dashboard-dev
+      SPRING_DATASOURCE_USERNAME: puser
+      SPRING_DATASOURCE_PASSWORD: psqlpassword
+
+  lz-db:
+    container_name: lz-db
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    networks:
+      - lz-network
+    volumes:
+      - type: volume
+        source: lz-volume
+        target: /var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: psqlpassword
+      POSTGRES_USER: puser
+      POSTGRES_DB: lz
+
+  sonar:
+    image: sonarqube:latest
+    container_name: sonar
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    ports:
+      - "9000:9000"
+
+volumes:
+  lz-volume:
+  sonar_data:
+
+networks:
+  lz-network:
+    name: lz-network
+    driver: bridge
