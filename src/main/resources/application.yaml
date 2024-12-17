@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: lz-api
+    datasource:
+      url: jdbc:postgresql://localhost:5432/lz?currentSchema=dashboard-dev
+      username: puser
+      password: psqlpassword
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml
+
+server:
+  error:
+    include-stacktrace: NEVER
+
+dashboard:
+  application:
+    date: 2024-04-18T09:00:00Z

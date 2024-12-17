@@ -27,14 +27,6 @@ services:
       POSTGRES_USER: puser
       POSTGRES_DB: lz
 
-  sonar:
-    image: sonarqube:latest
-    container_name: sonar
-    environment:
-      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
-    ports:
-      - "9000:9000"
-
 volumes:
   lz-volume:
   sonar_data:
